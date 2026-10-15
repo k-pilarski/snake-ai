@@ -4,7 +4,7 @@ A Snake game played by an AI agent that learns from scratch using reinforcement 
 
 ## Status
 
-Project setup in progress. See the [project board](../../projects) and [milestones](../../milestones) for current progress.
+Project setup in progress. See the [project board](https://github.com/users/k-pilarski/projects/5) and [milestones](../../milestones) for current progress.
 
 ## Roadmap
 
@@ -17,15 +17,34 @@ Project setup in progress. See the [project board](../../projects) and [mileston
 
 ## Tech stack
 
-Python 3.11, pygame, PyTorch, NumPy, matplotlib
+Python 3.11, pygame, PyTorch, NumPy, matplotlib. Linting with ruff, tests with pytest.
 
 ## Getting started
 
-_Coming soon._
+Requires Python 3.11 or newer.
+
+Create and activate a virtual environment:
+
+    python -m venv .venv
+
+    # Windows (Git Bash)
+    source .venv/Scripts/activate
+
+    # Linux / macOS
+    source .venv/bin/activate
+
+Install the project with development tools:
+
+    pip install -e ".[dev]"
+
+Run the checks:
+
+    ruff check .
+    pytest
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) (coming soon).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
