@@ -46,3 +46,11 @@ Rules: imperative mood ("add", not "added"), lowercase, no trailing period.
 - Acceptance criteria from the issue are met
 - Code is tested and runs locally
 - README and docs are updated if behavior changed
+
+## Branch protection
+
+Rules for `main` are defined in `.github/branch-protection.sh` and can be re-applied with:
+
+    bash .github/branch-protection.sh
+
+Summary: pull request required, `lint-and-test` check must pass, branch must be up to date, linear history, no force pushes, no deletion.
