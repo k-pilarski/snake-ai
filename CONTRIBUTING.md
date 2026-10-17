@@ -58,3 +58,5 @@ Summary: pull request required, `lint-and-test` check must pass, branch must be 
 ## Branch automation
 
 Creating a branch named `type/NR-description` runs `.github/workflows/branch-in-progress.yml`, which moves issue NR to **In progress** on the project board. The workflow needs a fine-grained personal access token with *Projects: read and write* stored as the repository secret `PROJECT_TOKEN`. Renew it before it expires.
+
+The token must be a classic personal access token with the scopes `project`, `read:org` and `read:discussion`. The workflow uses `@me` as the project owner.
