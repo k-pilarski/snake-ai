@@ -54,3 +54,7 @@ Rules for `main` are defined in `.github/branch-protection.sh` and can be re-app
     bash .github/branch-protection.sh
 
 Summary: pull request required, `lint-and-test` check must pass, branch must be up to date, linear history, no force pushes, no deletion.
+
+## Branch automation
+
+Creating a branch named `type/NR-description` runs `.github/workflows/branch-in-progress.yml`, which moves issue NR to **In progress** on the project board. The workflow needs a fine-grained personal access token with *Projects: read and write* stored as the repository secret `PROJECT_TOKEN`. Renew it before it expires.
