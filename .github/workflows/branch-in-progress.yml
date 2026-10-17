@@ -15,7 +15,7 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
       BRANCH: ${{ github.ref_name }}
-      OWNER: k-pilarski
+      OWNER: "@me"
       REPO: snake-ai
       PROJECT_NUMBER: "5"
     steps:
