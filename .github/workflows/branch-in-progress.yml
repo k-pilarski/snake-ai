@@ -1,0 +1,53 @@
+name: Move issue to In progress
+
+on:
+  create
+
+permissions:
+  contents: read
+
+jobs:
+  move-card:
+    name: move-card
+    if: github.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+      BRANCH: ${{ github.ref_name }}
+      OWNER: k-pilarski
+      REPO: snake-ai
+      PROJECT_NUMBER: "5"
+    steps:
+      - name: Extract issue number from branch name
+        id: parse
+        run: |
+          if [[ "$BRANCH" =~ ^[a-z]+/([0-9]+)- ]]; then
+            echo "issue=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+          else
+            echo "Branch '$BRANCH' does not match type/NR-description. Skipping."
+          fi
+
+      - name: Set status to In progress
+        if: steps.parse.outputs.issue != ''
+        env:
+          ISSUE: ${{ steps.parse.outputs.issue }}
+        run: |
+          project=$(gh project view "$PROJECT_NUMBER" --owner "$OWNER" --format json)
+          project_id=$(jq -r '.id' <<< "$project")
+
+          fields=$(gh project field-list "$PROJECT_NUMBER" --owner "$OWNER" --format json)
+          field_id=$(jq -r '.fields[] | select(.name=="Status") | .id' <<< "$fields")
+          option_id=$(jq -r '.fields[] | select(.name=="Status") | .options[] | select(.name=="In progress") | .id' <<< "$fields")
+
+          items=$(gh project item-list "$PROJECT_NUMBER" --owner "$OWNER" --limit 200 --format json)
+          item_id=$(jq -r --argjson n "$ISSUE" '.items[] | select(.content.number==$n and .content.type=="Issue") | .id' <<< "$items")
+
+          if [ -z "$item_id" ]; then
+            echo "Issue #$ISSUE is not on the project board. Skipping."
+            exit 0
+          fi
+
+          gh project item-edit --id "$item_id" --project-id "$project_id" \
+            --field-id "$field_id" --single-select-option-id "$option_id"
+          echo "Issue #$ISSUE moved to In progress."
