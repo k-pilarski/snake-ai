@@ -8,7 +8,10 @@ from __future__ import annotations
 
 from typing import Any
 
+import numpy as np
+
 from snake_ai.game import Direction, SnakeGame
+from snake_ai.state import get_state
 
 STRAIGHT = 0
 TURN_RIGHT = 1
@@ -29,13 +32,13 @@ class SnakeEnv:
         self.game = SnakeGame(width=width, height=height, seed=seed)
         self.steps_since_food = 0
 
-    def reset(self) -> Any:
+    def reset(self) -> np.ndarray:
         """Start a new episode and return the initial observation."""
         self.game.reset()
         self.steps_since_food = 0
         return self._observe()
 
-    def step(self, action: int) -> tuple[Any, float, bool, dict[str, Any]]:
+    def step(self, action: int) -> tuple[np.ndarray, float, bool, dict[str, Any]]:
         """Apply an action and return (observation, reward, done, info)."""
         if action not in (STRAIGHT, TURN_RIGHT, TURN_LEFT):
             raise ValueError(f"Invalid action: {action}. Expected 0, 1 or 2.")
@@ -74,6 +77,6 @@ class SnakeEnv:
             index = (index - 1) % 4
         return _CLOCKWISE[index]
 
-    def _observe(self) -> Any:
-        """Return the observation. The 11-feature state is added in a later issue."""
-        return None
+    def _observe(self) -> np.ndarray:
+        """Return the 11-feature state vector."""
+        return get_state(self.game)
