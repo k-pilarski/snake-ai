@@ -5,12 +5,12 @@ from snake_ai.game import Direction, Point, SnakeGame
 from snake_ai.state import STATE_SIZE, get_state
 
 
-def make_game(snake, direction, food=Point(0, 0)):
+def make_game(snake, direction, food=None):
     game = SnakeGame(seed=0)
     game.snake.clear()
     game.snake.extend(snake)
     game.direction = direction
-    game.food = food
+    game.food = food if food is not None else Point(0, 0)
     return game
 
 
