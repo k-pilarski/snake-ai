@@ -4,16 +4,20 @@ A Snake game played by an AI agent that learns from scratch using reinforcement 
 
 ## Status
 
-Project setup in progress. See the [project board](https://github.com/users/k-pilarski/projects/5) and [milestones](../../milestones) for current progress.
+Milestones M0-M2 are done: the game environment, a tabular Q-learning agent and its baseline results. Work continues on the DQN agent. See the [project board](https://github.com/users/k-pilarski/projects/5) and [milestones](../../milestones) for current progress.
 
 ## Roadmap
 
-- [ ] M0: Project setup
-- [ ] M1: Snake game environment
-- [ ] M2: Tabular Q-learning agent
+- [x] M0: Project setup
+- [x] M1: Snake game environment
+- [x] M2: Tabular Q-learning agent
 - [ ] M3: Deep Q-Network (DQN) agent
 - [ ] M4: Visualization and metrics
 - [ ] M5: Documentation and release
+
+## Results so far
+
+The tabular Q-learning agent reaches a mean score of about 24.7 in greedy evaluation (a random policy scores 0.06). Details are in [docs/q-learning-baseline.md](docs/q-learning-baseline.md).
 
 ## Tech stack
 
@@ -41,6 +45,15 @@ Run the checks:
 
     ruff check .
     pytest
+
+Play Snake yourself with the keyboard:
+
+    python -m snake_ai.play_manual
+
+Train the Q-learning agent and run the benchmark:
+
+    python -m snake_ai.train_q --episodes 3000
+    python -m snake_ai.benchmark_q
 
 ## Contributing
 
