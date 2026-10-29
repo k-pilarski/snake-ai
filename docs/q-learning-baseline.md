@@ -75,3 +75,7 @@ Training run with logging:
 Full benchmark (the table above):
 
     python -m snake_ai.benchmark_q
+
+## Note on training length
+
+The table above uses 3000 training episodes per seed. For an equal-budget comparison with the DQN agent, [q-learning-vs-dqn.md](q-learning-vs-dqn.md) uses 1000 episodes with the same seeds, and the Q-learning evaluation means there are higher (mean of eval means 26.55 instead of 24.69). Training is seeded, so the first 1000 episodes are identical in both runs. The cause of the lower scores after longer training was not investigated.
